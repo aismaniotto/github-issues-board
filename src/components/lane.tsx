@@ -24,7 +24,7 @@ const Lane: React.FC<Props> = (props: Props) => {
             <IssueCard
               id={item.id}
               key={item.id}
-              index={item.index}
+              index={index}
               title={item.title}
             />
           ))}

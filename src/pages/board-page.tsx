@@ -11,6 +11,7 @@ const BoardPage: React.FC = () => {
   const classes = Style();
 
   const [items, setItems] = useState([
+    { id: "id0", index: 0, title: "name0" },
     { id: "id1", index: 1, title: "name1" },
     { id: "id2", index: 2, title: "name2" },
     { id: "id3", index: 3, title: "name3" },
@@ -18,7 +19,6 @@ const BoardPage: React.FC = () => {
     { id: "id5", index: 5, title: "name5" },
     { id: "id6", index: 6, title: "name6" },
     { id: "id7", index: 7, title: "name7" },
-    { id: "id8", index: 8, title: "name8" },
   ]);
 
   const reorder = (list: any[], startIndex: number, endIndex: number) => {
