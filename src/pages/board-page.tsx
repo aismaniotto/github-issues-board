@@ -1,25 +1,19 @@
 import React, { useState } from "react";
 import {
   DragDropContext,
+  DraggableLocation,
   DropResult,
   ResponderProvided,
 } from "react-beautiful-dnd";
 import Lane from "../components/lane";
 import Style from "../styles/pages/board-page";
+import generateMockItems from "../services/generate-mock-items";
 
 const BoardPage: React.FC = () => {
   const classes = Style();
 
-  const [items, setItems] = useState([
-    { id: "id0", index: 0, title: "name0" },
-    { id: "id1", index: 1, title: "name1" },
-    { id: "id2", index: 2, title: "name2" },
-    { id: "id3", index: 3, title: "name3" },
-    { id: "id4", index: 4, title: "name4" },
-    { id: "id5", index: 5, title: "name5" },
-    { id: "id6", index: 6, title: "name6" },
-    { id: "id7", index: 7, title: "name7" },
-  ]);
+  const [itemsLane1, setItems1] = useState(generateMockItems('issue1', 10));
+  const [itemsLane2, setItems2] = useState(generateMockItems('issue2', 10));
 
   const reorder = (list: any[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
@@ -29,24 +23,62 @@ const BoardPage: React.FC = () => {
     return result;
   };
 
+  const move = (source:any[], destination:any[], droppableSource: DraggableLocation, droppableDestination: DraggableLocation) => {
+    const sourceClone = Array.from(source);
+    const destClone = Array.from(destination);
+    const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+    destClone.splice(droppableDestination.index, 0, removed);
+
+    const result: {[k: string]: any} = {};
+
+    result[droppableSource.droppableId] = sourceClone;
+    result[droppableDestination.droppableId] = destClone;
+
+    return result;
+  };
+
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
-    if (!result.destination) {
+    const { source, destination } = result;
+    
+    if (!destination) {
       return;
     }
 
-    const localItems = reorder(
-      items,
-      result.source.index,
-      result.destination.index
-    );
-
-    setItems(localItems);
+    if (source.droppableId === destination.droppableId) {
+      if (source.droppableId === 'lane1') {
+        const localItems = reorder(
+          itemsLane1,
+          source.index,
+          destination.index
+        );
+        setItems1(localItems);
+        
+      } else {
+        const localItems = reorder(
+          itemsLane2,
+          source.index,
+          destination.index
+        );
+        setItems2(localItems);
+      }
+    } else {
+      const result = move(
+        source.droppableId === 'lane1' ? itemsLane1 : itemsLane2,
+        destination.droppableId === 'lane1' ? itemsLane1 : itemsLane2,
+        source,
+        destination
+      );
+      setItems1(result.lane1);
+      setItems2(result.lane2);
+    }
   };
 
   return (
     <div className={classes.root}>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Lane id="firstLane" items={items} />
+        <Lane id="lane1" items={itemsLane1} />
+        <Lane id="lane2" items={itemsLane2} />
       </DragDropContext>
     </div>
   );
