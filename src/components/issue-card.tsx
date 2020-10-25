@@ -1,6 +1,6 @@
-import React from "react";
-import { Draggable } from "react-beautiful-dnd";
-import Style from "./../styles/components/issue-card";
+import React from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import Style from '../styles/components/issue-card';
 
 interface Props {
   id: string;

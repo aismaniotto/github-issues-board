@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
-import BoardPage from "./pages/board-page";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as serviceWorker from './serviceWorker';
+import BoardPage from './pages/board-page';
 
 ReactDOM.render(
   <React.StrictMode>
     <BoardPage />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

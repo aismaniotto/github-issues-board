@@ -1,7 +1,7 @@
-import React from "react";
-import { Droppable } from "react-beautiful-dnd";
-import Style from "./../styles/components/lane";
-import IssueCard from "./issue-card";
+import React from 'react';
+import { Droppable } from 'react-beautiful-dnd';
+import Style from '../styles/components/lane';
+import IssueCard from './issue-card';
 
 interface Props {
   id: string;
