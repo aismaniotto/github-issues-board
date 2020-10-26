@@ -44,7 +44,7 @@ const addNewIssue = (issue: Issue, lanes: Lane[]) => {
 const updateIssue = (issue: Issue, lanes: Lane[]) => {
   let laneIndex = -1;
   let issueIndex = 1;
-  let oldIssue: Issue;
+  let oldIssue: Issue | undefined;
   const localLanes = lanes;
   localLanes.forEach((lane) => {
     lane.issues.forEach((laneIssue) => {
