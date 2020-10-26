@@ -15,8 +15,5 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "include": ["src"]
 }
