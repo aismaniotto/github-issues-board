@@ -1,14 +1,16 @@
-const genereateMockItems = (prefix: string, qtd: number): any[] => {
-  const items = [];
-  for (let i = 0; i < qtd; i++) {
+import { Issue } from '../store/modules/board/types';
+
+const genereateMockIssues = (prefix: string, lane:string, qtd: number, initId: number): Issue[] => {
+  const items:Issue[] = [];
+  for (let i = initId; i < initId + qtd; i++) {
     items.push({
-      id: `id${i}${prefix}`,
-      index: i,
+      id: i,
       title: `${prefix}-${i}`,
+      lane,
     });
   }
 
   return items;
 };
 
-export default genereateMockItems;
+export default genereateMockIssues;

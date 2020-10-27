@@ -1,47 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DragDropContext,
-  DraggableLocation,
   DropResult,
   ResponderProvided,
 } from 'react-beautiful-dnd';
 import Lane from '../components/lane';
 import Style from '../styles/pages/board-page';
 import generateMockItems from '../services/generate-mock-items';
+import { BoardState, Issue } from '../store/modules/board/types';
 
-const BoardPage: React.FC = () => {
+interface StateProps {
+  board: BoardState;
+}
+
+interface DispatchProps {
+  getIssuesSuccess(issues: Issue[]): void;
+  updateIssue(issue: Issue): void;
+}
+
+type Props = StateProps & DispatchProps;
+
+const BoardPage: React.FC<Props> = (props: Props) => {
   const classes = Style();
+  const { board, getIssuesSuccess, updateIssue } = props;
 
-  const [itemsLane1, setItems1] = useState(generateMockItems('issue1', 10));
-  const [itemsLane2, setItems2] = useState(generateMockItems('issue2', 10));
-
-  const reorder = (list: any[], startIndex: number, endIndex: number) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
-  const move = (
-    source: any[],
-    destination: any[],
-    droppableSource: DraggableLocation,
-    droppableDestination: DraggableLocation
-  ) => {
-    const sourceClone = Array.from(source);
-    const destClone = Array.from(destination);
-    const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-    destClone.splice(droppableDestination.index, 0, removed);
-
-    const result: { [k: string]: any } = {};
-
-    result[droppableSource.droppableId] = sourceClone;
-    result[droppableDestination.droppableId] = destClone;
-
-    return result;
-  };
+  useEffect(() => {
+    getIssuesSuccess(
+      [
+        ...generateMockItems('predev', 'predev', 5, 0),
+        ...generateMockItems('backlog', 'backlog', 10, 5),
+        ...generateMockItems('todo', 'todo', 10, 15),
+        ...generateMockItems('doing', 'doing', 15, 25),
+        ...generateMockItems('done', 'done', 10, 40),
+      ],
+    );
+  }, [
+    getIssuesSuccess,
+  ]);
 
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
     const { source, destination } = result;
@@ -50,31 +45,17 @@ const BoardPage: React.FC = () => {
       return;
     }
 
-    if (source.droppableId === destination.droppableId) {
-      if (source.droppableId === 'lane1') {
-        const localItems = reorder(itemsLane1, source.index, destination.index);
-        setItems1(localItems);
-      } else {
-        const localItems = reorder(itemsLane2, source.index, destination.index);
-        setItems2(localItems);
-      }
-    } else {
-      const moveResult = move(
-        source.droppableId === 'lane1' ? itemsLane1 : itemsLane2,
-        destination.droppableId === 'lane1' ? itemsLane1 : itemsLane2,
-        source,
-        destination
-      );
-      setItems1(moveResult.lane1);
-      setItems2(moveResult.lane2);
-    }
+    const laneOrigin = board.lanes.find((lane) => lane.name === source.droppableId);
+    const issueTarget = laneOrigin?.issues[source.index];
+    if (!issueTarget) return;
+    const issueUpdated = { ...issueTarget, lane: destination.droppableId };
+    updateIssue(issueUpdated);
   };
 
   return (
     <div className={classes.root}>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Lane id="lane1" items={itemsLane1} />
-        <Lane id="lane2" items={itemsLane2} />
+        {board.lanes.map(((lane) => <Lane id={lane.name} items={lane.issues} />))}
       </DragDropContext>
     </div>
   );
