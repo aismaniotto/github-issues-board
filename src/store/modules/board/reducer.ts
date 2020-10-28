@@ -1,5 +1,7 @@
 import { Reducer } from 'redux';
-import { BoardState, BoardTypes, Issue, Lane } from './types';
+import {
+  BoardState, BoardTypes, Issue, Lane,
+} from './types';
 
 const INITIAL_STATE: BoardState = {
   repository: '',
@@ -46,10 +48,10 @@ const updateIssue = (issue: Issue, lanes: Lane[]) => {
   let issueIndex = 1;
   let oldIssue: Issue | undefined;
   const localLanes = lanes;
-  localLanes.forEach((lane) => {
+  localLanes.forEach((lane, index) => {
     lane.issues.forEach((laneIssue) => {
       if (laneIssue.id === issue.id) {
-        laneIndex = localLanes.indexOf(lane);
+        laneIndex = index;
         issueIndex = lane.issues.indexOf(laneIssue);
         oldIssue = laneIssue;
       }
@@ -59,6 +61,22 @@ const updateIssue = (issue: Issue, lanes: Lane[]) => {
   if (laneIndex !== -1 && issueIndex !== -1 && oldIssue) {
     if (oldIssue.lane === issue.lane) {
       localLanes[laneIndex].issues[issueIndex] = issue;
+    } else {
+      localLanes[laneIndex].issues.splice(issueIndex, 1);
+      const newLaneIndex = lanes.findIndex((lane) => lane.name === issue.lane);
+      if (newLaneIndex === -1) {
+        lanes.push({
+          name: issue.lane,
+          issues: [issue],
+        });
+      } else {
+        localLanes[newLaneIndex].issues.push(issue);
+        localLanes[newLaneIndex].issues = localLanes[newLaneIndex].issues.sort((a, b) => {
+          if (a.title < b.title) { return -1; }
+          if (a.title > b.title) { return 1; }
+          return 0;
+        });
+      }
     }
   }
 

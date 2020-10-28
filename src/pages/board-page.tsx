@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   DragDropContext,
   DropResult,
@@ -49,6 +49,12 @@ const BoardPage: React.FC<Props> = (props: Props) => {
     const issueTarget = laneOrigin?.issues[source.index];
     if (!issueTarget) return;
     const issueUpdated = { ...issueTarget, lane: destination.droppableId };
+
+    // console.log('------------------');
+    // console.log('source.droppableId: ', source.droppableId);
+    // console.log('destination.droppableId: ', destination.droppableId);
+    // console.log('------------------');
+
     updateIssue(issueUpdated);
   };
 
