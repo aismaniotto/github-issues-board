@@ -14,9 +14,10 @@ const Lane: React.FC<Props> = (props: Props) => {
 
   return (
     <Droppable droppableId={id}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <div
           className={classes.root}
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...provided.droppableProps}
           ref={provided.innerRef}
         >

@@ -13,11 +13,13 @@ const IssueCard: React.FC<Props> = (props: Props) => {
   const classes = Style();
   return (
     <Draggable key={id} draggableId={`${id}`} index={index}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <div
           className={classes.root}
           ref={provided.innerRef}
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...provided.draggableProps}
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...provided.dragHandleProps}
         >
           {title}
