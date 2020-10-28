@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import BoardPageCont from './containers/board.container';
 import store from './store';
+import HomePage from './pages/home-page';
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <BoardPageCont />
+      <HomePage />
     </React.StrictMode>
   </Provider>,
   document.getElementById('root'),

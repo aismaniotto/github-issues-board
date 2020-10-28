@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import Lane from '../components/lane';
-import Style from '../styles/pages/board-page';
+import DroppableLane from './droppable-lane';
+import Style from '../styles/components/board';
 import generateMockItems from '../services/generate-mock-items';
 import { BoardState, Issue } from '../store/modules/board/types';
 
@@ -16,7 +16,7 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-const BoardPage: React.FC<Props> = (props: Props) => {
+const Board: React.FC<Props> = (props: Props) => {
   const classes = Style();
   const { board, getIssuesSuccess, updateIssue } = props;
 
@@ -51,11 +51,11 @@ const BoardPage: React.FC<Props> = (props: Props) => {
     <div className={classes.root}>
       <DragDropContext onDragEnd={onDragEnd}>
         {board.lanes.map((lane) => (
-          <Lane id={lane.name} items={lane.issues} />
+          <DroppableLane name={lane.name} items={lane.issues} />
         ))}
       </DragDropContext>
     </div>
   );
 };
 
-export default BoardPage;
+export default Board;
