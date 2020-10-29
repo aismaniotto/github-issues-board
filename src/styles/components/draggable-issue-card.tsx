@@ -1,16 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    background: 'white',
+    background: theme.palette.background.paper,
     width: '15rem',
     margin: '5px',
     padding: '5px',
     borderRadius: '4px',
   },
-  title: {
-    fontSize: '0.8rem',
-  },
-});
+  title: {},
+}));
 
 export default useStyles;

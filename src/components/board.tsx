@@ -27,6 +27,7 @@ const Board: React.FC<Props> = (props: Props) => {
       ...generateMockItems('todo', 'todo', 10, 15),
       ...generateMockItems('doing', 'doing', 15, 25),
       ...generateMockItems('done', 'done', 10, 40),
+      ...generateMockItems('closed', 'closed', 50, 50),
     ]);
   }, [getIssuesSuccess]);
 
