@@ -5,9 +5,12 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.main,
     padding: theme.spacing(0.25),
     margin: theme.spacing(0.5),
-    maxHeight: '99%',
-    overflow: 'auto',
     borderRadius: '4px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  lane: {
+    overflow: 'auto',
   },
   title: {
     margin: theme.spacing(0.75),

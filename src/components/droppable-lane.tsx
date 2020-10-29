@@ -15,27 +15,29 @@ const DroppableLane: React.FC<Props> = (props: Props) => {
   const classes = Style();
 
   return (
-    <Droppable droppableId={name}>
-      {(provided) => (
-        <div
-          className={classes.root}
+    <div className={classes.root}>
+      <Typography variant="subtitle2" className={classes.title}>
+        {name}
+      </Typography>
+      <Droppable droppableId={name}>
+        {(provided) => (
+          <div
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-        >
-          <Typography variant="subtitle2" className={classes.title}>
-            {name}
-          </Typography>
-          {items.map((item, index) => (
-            <DraggableIssueCard
-              issue={item}
-              index={index}
-            />
-          ))}
-          {provided.placeholder}
-        </div>
-      )}
-    </Droppable>
+            {...provided.droppableProps}
+            className={classes.lane}
+            ref={provided.innerRef}
+          >
+            {items.map((item, index) => (
+              <DraggableIssueCard
+                issue={item}
+                index={index}
+              />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </div>
   );
 };
 
