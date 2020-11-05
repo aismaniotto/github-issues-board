@@ -6,13 +6,14 @@ import * as serviceWorker from './serviceWorker';
 import store from './store';
 import HomePage from './pages/home-page';
 import theme from './theme';
+import LoginPage from './pages/login-page';
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <HomePage />
+        <LoginPage />
       </ThemeProvider>
     </React.StrictMode>
   </Provider>,
