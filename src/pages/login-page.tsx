@@ -1,6 +1,6 @@
 import { Container, Typography } from '@material-ui/core';
 import React from 'react';
-import TokenAuthForm from '../components/token-auth-form';
+import TokenAuthFormCont from '../containers/token-auth-form.container';
 import Style from '../styles/pages/login-page';
 
 const LoginPage: React.FC = () => {
@@ -12,7 +12,7 @@ const LoginPage: React.FC = () => {
         <Typography variant="h2">
           GITHUB-ISSUES-BOARD
         </Typography>
-        <TokenAuthForm />
+        <TokenAuthFormCont />
       </Container>
     </div>
   );
