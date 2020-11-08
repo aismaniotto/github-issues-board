@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAccessToken } from '../local-storage-service';
+import { getAccessToken } from '../local-storage/token';
 
 const baseApi = axios.create({
   baseURL: 'https://api.github.com',

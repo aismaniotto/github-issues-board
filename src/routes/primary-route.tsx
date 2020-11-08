@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import PrivateRoute from '../components/private-route';
 import HomePage from '../pages/home-page';
-import { hasAccessToken } from '../services/local-storage-service';
+import { hasAccessToken } from '../services/local-storage/token';
 
 import LoginPage from '../pages/login-page';
 

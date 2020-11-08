@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { AuthState, AuthTypes } from './types';
-import { hasAccessToken } from '../../../services/local-storage-service';
+import { hasAccessToken } from '../../../services/local-storage/token';
 
 const INITIAL_STATE: AuthState = {
   signed: hasAccessToken(),

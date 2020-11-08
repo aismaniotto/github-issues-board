@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { signSuccess, signFailure } from './actions';
 import { AuthTypes } from './types';
-import { saveAccessToken } from '../../../services/local-storage-service';
+import { saveAccessToken } from '../../../services/local-storage/token';
 import { getUser } from '../../../services/api/auth';
 
 export function* signIn({
