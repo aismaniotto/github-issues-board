@@ -4,16 +4,15 @@ import { Provider } from 'react-redux';
 import { ThemeProvider, CssBaseline } from '@material-ui/core';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
-import HomePage from './pages/home-page';
 import theme from './theme';
-import LoginPage from './pages/login-page';
+import PrimaryRoute from './routes/primary-route';
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <LoginPage />
+        <PrimaryRoute />
       </ThemeProvider>
     </React.StrictMode>
   </Provider>,

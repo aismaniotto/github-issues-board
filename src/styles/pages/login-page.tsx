@@ -12,7 +12,7 @@ const Styles = makeStyles((theme: Theme) => createStyles({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
-    width: '35%',
+    width: 'auto',
     padding: '1rem',
     backgroundColor: '#FFFFFF',
     borderRadius: '5px',
