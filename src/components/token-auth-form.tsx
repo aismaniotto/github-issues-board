@@ -4,27 +4,36 @@ import {
 import React, { useCallback, useState } from 'react';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import Style from '../styles/components/token-auth-form';
+import { UiState } from '../store/modules/ui/types';
+import Loader from './loader';
+
+interface StateProps {
+  ui: UiState;
+}
 
 interface DispatchProps {
   signResquest(token: string): void;
+  startLoading(): void;
 }
 
-type Props = DispatchProps;
+type Props = StateProps & DispatchProps;
 
 const TokenAuthForm: React.FC<Props> = (props:Props) => {
   const classes = Style();
 
-  const { signResquest } = props;
+  const { ui, signResquest, startLoading } = props;
 
   const [token, setToken] = useState('');
 
   const handleSubmit = useCallback(async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    startLoading();
     signResquest(token);
-  }, [token, signResquest]);
+  }, [token, signResquest, startLoading]);
 
   return (
     <div className={classes.root}>
+      {ui.loading && <Loader />}
       <form onSubmit={handleSubmit}>
         <TextField
           className={classes.margin}
@@ -56,7 +65,6 @@ const TokenAuthForm: React.FC<Props> = (props:Props) => {
           variant="contained"
           color="primary"
           type="submit"
-          // onClick={handleSubmit}
         >
           Login
         </Button>

@@ -5,10 +5,12 @@ import { BoardState } from './modules/board/types';
 
 import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSagas';
+import { UiState } from './modules/ui/types';
 
 export interface ApplicationState {
   auth: AuthState;
   board: BoardState;
+  ui: UiState;
 }
 
 const sagaMiddleware = createSagaMiddleware();
