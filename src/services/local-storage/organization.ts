@@ -1,15 +1,15 @@
-const currentOrganization = 'CURRENT_ORGANIZATION';
+const currentOrganization = 'CURRENT_REPO_OWNER';
 
-export const saveCurrentOrganization = (organization: string) => {
-  localStorage.setItem(currentOrganization, organization);
-  return organization;
+export const saveCurrentRepoOwner = (repoOwner: string) => {
+  localStorage.setItem(currentOrganization, repoOwner);
+  return repoOwner;
 };
 
-export const deleteCurrentOrganization = () => {
+export const deleteCurrentRepoOwner = () => {
   localStorage.removeItem(currentOrganization);
 };
 
-export const getCurrentOrganization = () =>
+export const getCurrentRepoOwner = () =>
   localStorage.getItem(currentOrganization) ?? '';
 
-export const hasCurrentOrganization = () => getCurrentOrganization() != null;
+export const hasCurrentRepoOwner = () => getCurrentRepoOwner() != null;
