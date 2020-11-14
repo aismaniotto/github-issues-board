@@ -10,6 +10,6 @@ export const deleteCurrentOrganization = () => {
 };
 
 export const getCurrentOrganization = () =>
-  localStorage.getItem(currentOrganization);
+  localStorage.getItem(currentOrganization) ?? '';
 
 export const hasCurrentOrganization = () => getCurrentOrganization() != null;

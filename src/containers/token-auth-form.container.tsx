@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import * as AuthAction from '../store/modules/auth/actions';
-import * as UiAction from '../store/modules/ui/actions';
 import { ApplicationState } from '../store';
 import TokenAuthForm from '../components/token-auth-form';
 
@@ -12,6 +11,6 @@ function mapStateToProps(state: ApplicationState) {
   };
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...AuthAction, ...UiAction }, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(AuthAction, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(TokenAuthForm);

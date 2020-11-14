@@ -13,7 +13,6 @@ interface StateProps {
 
 interface DispatchProps {
   signResquest(token: string): void;
-  startLoading(): void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -21,15 +20,14 @@ type Props = StateProps & DispatchProps;
 const TokenAuthForm: React.FC<Props> = (props:Props) => {
   const classes = Style();
 
-  const { ui, signResquest, startLoading } = props;
+  const { ui, signResquest } = props;
 
   const [token, setToken] = useState('');
 
   const handleSubmit = useCallback(async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    startLoading();
     signResquest(token);
-  }, [token, signResquest, startLoading]);
+  }, [token, signResquest]);
 
   return (
     <div className={classes.root}>

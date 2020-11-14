@@ -12,6 +12,6 @@ export enum AuthTypes {
  */
 export interface AuthState {
   readonly signed: boolean;
-  readonly loading: boolean;
-  readonly error: boolean;
+  readonly token: string;
+  readonly username: string;
 }

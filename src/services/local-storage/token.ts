@@ -9,6 +9,7 @@ export const deleteAccessToken = () => {
   localStorage.removeItem(personalAccessToken);
 };
 
-export const getAccessToken = () => localStorage.getItem(personalAccessToken);
+export const getAccessToken = () =>
+  localStorage.getItem(personalAccessToken) ?? '';
 
 export const hasAccessToken = () => getAccessToken() != null;
