@@ -12,4 +12,4 @@ export const deleteCurrentRepoOwner = () => {
 export const getCurrentRepoOwner = () =>
   localStorage.getItem(currentOrganization) ?? '';
 
-export const hasCurrentRepoOwner = () => getCurrentRepoOwner() != null;
+export const hasCurrentRepoOwner = () => getCurrentRepoOwner() !== '';

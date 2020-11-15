@@ -11,4 +11,4 @@ export const deleteUsername = () => {
 
 export const getUsername = () => localStorage.getItem(accountUsername) ?? '';
 
-export const hasUsername = () => getUsername() != null;
+export const hasUsername = () => getUsername() !== '';

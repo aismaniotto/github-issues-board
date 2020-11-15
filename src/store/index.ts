@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import { AuthState } from './modules/auth/types';
 import { BoardState } from './modules/board/types';
 import { RepoOwnerState } from './modules/repoOwner/types';
+import { RepositoryState } from './modules/repository/types';
 
 import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSagas';
@@ -11,6 +12,7 @@ import { UiState } from './modules/ui/types';
 export interface ApplicationState {
   auth: AuthState;
   organization: RepoOwnerState;
+  repository: RepositoryState;
   board: BoardState;
   ui: UiState;
 }

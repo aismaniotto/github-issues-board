@@ -12,4 +12,4 @@ export const deleteCurrentRepository = () => {
 export const getCurrentRepository = () =>
   localStorage.getItem(currentRepository) ?? '';
 
-export const hasCurrentRepository = () => getCurrentRepository() != null;
+export const hasCurrentRepository = () => getCurrentRepository() !== '';
