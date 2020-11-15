@@ -23,11 +23,15 @@ export function* signIn({
       yield put(signSuccess({ token: payload, username: login }));
     } else {
       yield put(signFailure());
-      yield put(setErrors(['invalid token']));
+      yield put(setErrors(['not a excpetion, but also, not 200 status']));
     }
   } catch (err) {
     yield put(signFailure());
-    yield put(setErrors([err.response.status]));
+    if (err.response.status === 401) {
+      yield put(setErrors([`${err.response.status}: invalid token`]));
+    } else {
+      yield put(setErrors([err.response.status]));
+    }
   } finally {
     yield put(stopLoading());
   }

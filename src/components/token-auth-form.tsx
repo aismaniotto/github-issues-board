@@ -1,13 +1,16 @@
 import {
-  Button, InputAdornment, Link, TextField,
+  Button, FormControl, InputAdornment, Link, TextField,
 } from '@material-ui/core';
 import React, { useCallback, useState } from 'react';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import { Redirect } from 'react-router-dom';
 import Style from '../styles/components/token-auth-form';
 import { UiState } from '../store/modules/ui/types';
 import Loader from './loader';
+import { AuthState } from '../store/modules/auth/types';
 
 interface StateProps {
+  auth: AuthState;
   ui: UiState;
 }
 
@@ -20,7 +23,7 @@ type Props = StateProps & DispatchProps;
 const TokenAuthForm: React.FC<Props> = (props:Props) => {
   const classes = Style();
 
-  const { ui, signResquest } = props;
+  const { auth, ui, signResquest } = props;
 
   const [token, setToken] = useState('');
 
@@ -29,10 +32,15 @@ const TokenAuthForm: React.FC<Props> = (props:Props) => {
     signResquest(token);
   }, [token, signResquest]);
 
+  if (auth.signed) {
+    return <Redirect to="/select-repo" />;
+  }
+
   return (
     <div className={classes.root}>
       {ui.loading && <Loader />}
       <form onSubmit={handleSubmit}>
+        <FormControl />
         <TextField
           className={classes.margin}
           fullWidth
@@ -48,6 +56,8 @@ const TokenAuthForm: React.FC<Props> = (props:Props) => {
               </InputAdornment>
             ),
           }}
+          error={ui.errors.length > 0}
+          helperText={ui.errors[0]}
         />
 
         <Link
