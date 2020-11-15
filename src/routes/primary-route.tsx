@@ -2,19 +2,23 @@ import React from 'react';
 import {
   Switch, Route, BrowserRouter,
 } from 'react-router-dom';
-import PrivateRoute from '../components/private-route';
 import HomePage from '../pages/home-page';
-import { hasAccessToken } from '../services/local-storage/token';
 
 import LoginPage from '../pages/login-page';
+import SelectRepoPage from '../pages/select-repo-page';
+import PrivateRouteLvl1Container from '../containers/private-route-lvl1.container';
+import PrivateRouteLvl2Container from '../containers/private-route-lvl2.container';
 
 const PrimaryRoute = () => (
   <div>
     <BrowserRouter>
       <Switch>
-        <PrivateRoute isSignedIn={hasAccessToken()} path="/" exact component={HomePage} />
-        <PrivateRoute isSignedIn={hasAccessToken()} path="/home" exact component={HomePage} />
         <Route path="/login" exact component={LoginPage} />
+
+        <PrivateRouteLvl1Container path="/select-repo" exact component={SelectRepoPage} />
+
+        <PrivateRouteLvl2Container path="/" exact component={HomePage} />
+        <PrivateRouteLvl2Container path="/home" exact component={HomePage} />
 
         <Route path="*" component={() => <h1>PAGE NOT FOUND</h1>} />
       </Switch>
