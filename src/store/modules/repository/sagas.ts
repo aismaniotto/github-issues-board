@@ -16,9 +16,8 @@ export function* requestRepositories({
 }) {
   try {
     yield put(startLoading());
-
     const response =
-      getUsername() === 'User'
+      getUsername() === payload
         ? yield call(getRepositoriesFromUser)
         : yield call(getRepositoriesFromOrganization, payload);
 

@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   Button, Container, FormControl, InputLabel, MenuItem, Select, Typography,
 } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Repository, RepositoryState } from '../store/modules/repository/types';
+import { RepoOwner, RepoOwnerState } from '../store/modules/repoOwner/types';
+import Loader from '../components/loader';
+import { UiState } from '../store/modules/ui/types';
+import { saveCurrentRepoOwner } from '../services/local-storage/organization';
+import { saveCurrentRepository } from '../services/local-storage/repository';
 
 const useStyles = makeStyles((theme:Theme) => createStyles({
   root: {
@@ -32,64 +38,112 @@ const useStyles = makeStyles((theme:Theme) => createStyles({
   },
 }));
 
-const SelectRepoPage: React.FC = () => {
+interface StateProps {
+  ui: UiState,
+  repoOwner: RepoOwnerState,
+  repository: RepositoryState,
+}
+
+interface DispatchProps {
+  repoOwnersResquest(): void;
+  repoOwnerSelect(repoOwner: RepoOwner): void;
+  repositoriesResquest(repoOwner: string): void;
+  repositoriySelect(repository: Repository): void;
+}
+
+type Props = StateProps & DispatchProps;
+
+const SelectRepoPage: React.FC<Props> = (props:Props) => {
   const classes = useStyles();
 
-  const [organization, setOrganization] = React.useState('');
+  const {
+    ui,
+    repoOwner,
+    repoOwnersResquest,
+    repoOwnerSelect,
+    repository,
+    repositoriesResquest,
+    repositoriySelect,
+  } = props;
+
+  useEffect(() => {
+    repoOwnersResquest();
+  }, [repoOwnersResquest]);
+
+  useEffect(() => {
+    if (repoOwner.selectedRepoOwner.login !== '') {
+      repositoriesResquest(repoOwner.selectedRepoOwner.login);
+    }
+  }, []);
+
   const handleChangeOrganizations = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setOrganization(event.target.value as string);
+    const selectedOwner = repoOwner.repoOwners.find(
+      (owner) => owner.login === event.target.value,
+    );
+    if (selectedOwner) { repoOwnerSelect(selectedOwner); }
   };
 
-  const [repository, setRepository] = React.useState('');
   const handleChangeRepository = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setRepository(event.target.value as string);
+    const selectedRepo = repository.repositories.find((repo) => repo.name === event.target.value);
+    if (selectedRepo) { repositoriySelect(selectedRepo); }
   };
+
+  const handleSubmit = useCallback(async (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (repoOwner.selectedRepoOwner.login && repository.selectedRepository.name) {
+      saveCurrentRepoOwner(repoOwner.selectedRepoOwner.login);
+      saveCurrentRepository(repository.selectedRepository.name);
+
+      window.location.href = '/';
+    }
+  }, [repoOwner.selectedRepoOwner.login, repository.selectedRepository.name]);
 
   return (
     <div className={classes.root}>
+      {ui.loading && <Loader />}
       <Container className={classes.content}>
         <Typography variant="h2">
-          Select Page
+          Select Repository
         </Typography>
+        <form onSubmit={handleSubmit}>
+          <FormControl className={classes.formControl} fullWidth>
+            <InputLabel id="repoOWners-label">Repo owners</InputLabel>
+            <Select
+              labelId="repoOwners-label"
+              id="repoOwners"
+              value={repoOwner.selectedRepoOwner.login}
+              onChange={handleChangeOrganizations}
+            >
+              {repoOwner.repoOwners.map((owner) => (
+                <MenuItem key={owner.login} value={owner.login}>{owner.login}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        <FormControl className={classes.formControl} fullWidth>
-          <InputLabel id="organizations-label">Organizations</InputLabel>
-          <Select
-            labelId="organizations-label"
-            id="organizations"
-            value={organization}
-            onChange={handleChangeOrganizations}
+          <FormControl className={classes.formControl} fullWidth>
+            <InputLabel id="repositories-label">Repositories</InputLabel>
+            <Select
+              labelId="repositories-label"
+              id="repositories"
+              value={repository.selectedRepository.name}
+              onChange={handleChangeRepository}
+            >
+              {repository.repositories.map((repo) => (
+                <MenuItem key={repo.name} value={repo.name}>{repo.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            type="submit"
+            className={classes.margin}
           >
-            <MenuItem value={1}>Some-Organization</MenuItem>
-            <MenuItem value={2}>@aismaniotto</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl className={classes.formControl} fullWidth>
-          <InputLabel id="repositories-label">Repositories</InputLabel>
-          <Select
-            labelId="repositories-label"
-            id="repositories"
-            value={repository}
-            onChange={handleChangeRepository}
-          >
-            <MenuItem value={1}>github-board-issues</MenuItem>
-            <MenuItem value={2}>recipe-app</MenuItem>
-            <MenuItem value={3}>tic-tac-toe</MenuItem>
-            <MenuItem value={4}>RColetum</MenuItem>
-          </Select>
-        </FormControl>
-
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          type="submit"
-          className={classes.margin}
-        >
-          Ok
-        </Button>
-
+            Ok
+          </Button>
+        </form>
       </Container>
     </div>
   );

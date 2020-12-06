@@ -8,5 +8,5 @@ export const repoOwnersSuccess = (repoOwner: RepoOwner[]) =>
 export const repoOwnersFailure = () =>
   action(RepoOwnerTypes.REPO_OWNERS_FAILURE);
 
-export const repoOwnerSelect = (organization: RepoOwnerTypes) =>
-  action(RepoOwnerTypes.REPO_OWNER_SELECT, organization);
+export const repoOwnerSelect = (repoOwner: RepoOwner) =>
+  action(RepoOwnerTypes.REPO_OWNER_SELECT, repoOwner);

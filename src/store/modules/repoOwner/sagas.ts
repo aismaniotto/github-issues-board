@@ -3,8 +3,10 @@ import { repoOwnersSuccess, repoOwnersFailure } from './actions';
 import { stopLoading, setErrors, startLoading } from '../ui/actions';
 import { getOrganizations } from '../../../services/api/organization';
 import { getUsername } from '../../../services/local-storage/username';
+import { repositoriesResquest } from '../repository/actions';
+import { RepoOwner, RepoOwnerTypes } from './types';
 
-export function* requestOrganizations() {
+export function* requestRepoOwners() {
   try {
     yield put(startLoading());
     const response = yield call(getOrganizations);
@@ -25,4 +27,13 @@ export function* requestOrganizations() {
   } finally {
     yield put(stopLoading());
   }
+}
+
+export function* requestRepositoriesAfterSelectOwner({
+  payload,
+}: {
+  type: typeof RepoOwnerTypes.REPO_OWNER_SELECT;
+  payload: RepoOwner;
+  }) {
+  yield put(repositoriesResquest(payload.login));
 }

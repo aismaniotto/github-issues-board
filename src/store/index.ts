@@ -11,7 +11,7 @@ import { UiState } from './modules/ui/types';
 
 export interface ApplicationState {
   auth: AuthState;
-  organization: RepoOwnerState;
+  repoOwner: RepoOwnerState;
   repository: RepositoryState;
   board: BoardState;
   ui: UiState;
