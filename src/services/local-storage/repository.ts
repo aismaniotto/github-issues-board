@@ -1,4 +1,4 @@
-const currentRepository = 'CURRENT_Repository';
+const currentRepository = 'CURRENT_REPOSITORY';
 
 export const saveCurrentRepository = (repository: string) => {
   localStorage.setItem(currentRepository, repository);
