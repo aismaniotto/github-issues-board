@@ -1,6 +1,6 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-const Styles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
 
   },
@@ -10,7 +10,6 @@ const Styles = makeStyles((theme: Theme) => createStyles({
   link: {
     margin: theme.spacing(2),
   },
-
 }));
 
-export default Styles;
+export default useStyles;

@@ -7,7 +7,7 @@ import HomePage from '../pages/home-page';
 import LoginPage from '../pages/login-page';
 import PrivateRouteLvl1Container from '../containers/private-route-lvl1.container';
 import PrivateRouteLvl2Container from '../containers/private-route-lvl2.container';
-import SelectRepoContainer from '../containers/select-repo-container';
+import SelectRepoPage from '../pages/select-repo-page';
 
 const PrimaryRoute = () => (
   <div>
@@ -15,7 +15,7 @@ const PrimaryRoute = () => (
       <Switch>
         <Route path="/login" exact component={LoginPage} />
 
-        <PrivateRouteLvl1Container path="/select-repo" exact component={SelectRepoContainer} />
+        <PrivateRouteLvl1Container path="/select-repo" exact component={SelectRepoPage} />
 
         <PrivateRouteLvl2Container path="/" exact component={HomePage} />
         <PrivateRouteLvl2Container path="/home" exact component={HomePage} />

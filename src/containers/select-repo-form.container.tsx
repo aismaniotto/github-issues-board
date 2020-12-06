@@ -3,7 +3,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import * as RepoOwnerAction from '../store/modules/repoOwner/actions';
 import * as RepositoryAction from '../store/modules/repository/actions';
 import { ApplicationState } from '../store';
-import SelectRepoPage from '../pages/select-repo-page';
+import SelectRepoForm from '../components/select-repo-form';
 
 function mapStateToProps(state: ApplicationState) {
   return {
@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
   }, dispatch,
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectRepoPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectRepoForm);
