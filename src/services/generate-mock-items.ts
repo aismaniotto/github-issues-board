@@ -4,12 +4,12 @@ const genereateMockIssues = (
   prefix: string,
   lane: string,
   qtd: number,
-  initId: number,
+  initId: number
 ): Issue[] => {
   const items: Issue[] = [];
   for (let i = initId; i < initId + qtd; i++) {
     items.push({
-      id: i,
+      number: i,
       title: `${prefix}-${i}`,
       lane,
     });

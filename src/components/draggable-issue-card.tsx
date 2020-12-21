@@ -13,7 +13,7 @@ const DraggableIssueCard: React.FC<Props> = (props: Props) => {
   const { issue, index } = props;
   const classes = Style();
   return (
-    <Draggable key={issue.id} draggableId={`${issue.id}`} index={index}>
+    <Draggable key={issue.number} draggableId={`${issue.number}`} index={index}>
       {(provided) => (
         <div
           className={classes.root}

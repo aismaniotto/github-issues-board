@@ -14,9 +14,17 @@ export enum BoardTypes {
 /**
  * data types
  */
+export interface Label {
+  name: number;
+  description: string;
+  color: string;
+}
+
 export interface Issue {
-  id: number;
+  number: number;
   title: string;
+  body?: string;
+  labels?: Label[];
   lane: string;
 }
 

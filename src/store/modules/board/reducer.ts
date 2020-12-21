@@ -1,7 +1,5 @@
 import { Reducer } from 'redux';
-import {
-  BoardState, BoardTypes, Issue, Lane,
-} from './types';
+import { BoardState, BoardTypes, Issue, Lane } from './types';
 
 const INITIAL_STATE: BoardState = {
   repository: '',
@@ -50,7 +48,7 @@ const updateIssue = (issue: Issue, lanes: Lane[]) => {
   const localLanes = lanes;
   localLanes.forEach((lane, index) => {
     lane.issues.forEach((laneIssue) => {
-      if (laneIssue.id === issue.id) {
+      if (laneIssue.number === issue.number) {
         laneIndex = index;
         issueIndex = lane.issues.indexOf(laneIssue);
         oldIssue = laneIssue;
@@ -71,11 +69,17 @@ const updateIssue = (issue: Issue, lanes: Lane[]) => {
         });
       } else {
         localLanes[newLaneIndex].issues.push(issue);
-        localLanes[newLaneIndex].issues = localLanes[newLaneIndex].issues.sort((a, b) => {
-          if (a.title < b.title) { return -1; }
-          if (a.title > b.title) { return 1; }
-          return 0;
-        });
+        localLanes[newLaneIndex].issues = localLanes[newLaneIndex].issues.sort(
+          (a, b) => {
+            if (a.title < b.title) {
+              return -1;
+            }
+            if (a.title > b.title) {
+              return 1;
+            }
+            return 0;
+          }
+        );
       }
     }
   }
