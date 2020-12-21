@@ -1,3 +1,5 @@
+import { Label } from '../label/types';
+
 /**
  * actions types
  */
@@ -14,12 +16,6 @@ export enum BoardTypes {
 /**
  * data types
  */
-export interface Label {
-  name: number;
-  description: string;
-  color: string;
-}
-
 export interface Issue {
   number: number;
   title: string;
