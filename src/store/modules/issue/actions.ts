@@ -6,7 +6,7 @@ export const getIssuesSuccess = (issues: Issue[]) =>
   action(IssueTypes.GET_ISSUES_SUCCESS, issues);
 export const getIssuesFailure = () => action(IssueTypes.GET_ISSUES_FAILURE);
 
-export const createIssue = (issue: Issue) =>
-  action(IssueTypes.CREATE_ISSUE, issue);
-export const updateIssue = (issue: Issue) =>
-  action(IssueTypes.UPDATE_ISSUE, issue);
+export const createIssueResquest = (issue: Issue) =>
+  action(IssueTypes.CREATE_ISSUE_REQUEST, issue);
+export const updateIssueRequest = (issue: Issue) =>
+  action(IssueTypes.UPDATE_ISSUE_REQUEST, issue);

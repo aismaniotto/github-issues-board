@@ -19,12 +19,12 @@ const reducer: Reducer<IssueState> = (state = INITIAL_STATE, action) => {
         ...state,
         issues: [],
       };
-    case IssueTypes.CREATE_ISSUE:
+    case IssueTypes.CREATE_ISSUE_REQUEST:
       return {
         ...state,
         issues: [...state.issues, action.payload],
       };
-    case IssueTypes.UPDATE_ISSUE:
+    case IssueTypes.UPDATE_ISSUE_REQUEST:
       return {
         ...state,
         issues: [

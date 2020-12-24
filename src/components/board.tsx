@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { LabelSharp } from '@material-ui/icons';
 import DroppableLane from './droppable-lane';
 import Style from '../styles/components/board';
 import { LabelState } from '../store/modules/label/types';
@@ -12,7 +11,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  updateIssue(issue: Issue): void;
+  updateIssueRequest(issue: Issue): void;
   getIssuesRequest(): void;
   getLabelsRequest(): void;
 }
@@ -24,7 +23,7 @@ const Board: React.FC<Props> = (props: Props) => {
   const {
     issue,
     label,
-    updateIssue,
+    updateIssueRequest,
     getIssuesRequest,
     getLabelsRequest,
   } = props;
@@ -35,7 +34,7 @@ const Board: React.FC<Props> = (props: Props) => {
   }, [getIssuesRequest, getLabelsRequest]);
 
   const onDragEnd = (result: DropResult) => {
-    const { source, destination, draggableId } = result;
+    const { destination, draggableId } = result;
 
     if (!destination) {
       return;
@@ -64,9 +63,8 @@ const Board: React.FC<Props> = (props: Props) => {
       ],
     };
 
-    updateIssue(issueUpdated);
+    updateIssueRequest(issueUpdated);
   };
-
   return (
     <div className={classes.root}>
       <DragDropContext onDragEnd={onDragEnd}>
