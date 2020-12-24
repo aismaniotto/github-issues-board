@@ -1,49 +1,68 @@
 import React, { useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { LabelSharp } from '@material-ui/icons';
 import DroppableLane from './droppable-lane';
 import Style from '../styles/components/board';
-import generateMockItems from '../services/generate-mock-items';
-import { BoardState, Issue } from '../store/modules/board/types';
+import { LabelState } from '../store/modules/label/types';
+import { Issue, IssueState } from '../store/modules/issue/types';
 
 interface StateProps {
-  board: BoardState;
+  issue: IssueState;
+  label: LabelState;
 }
 
 interface DispatchProps {
-  getIssuesSuccess(issues: Issue[]): void;
   updateIssue(issue: Issue): void;
+  getIssuesRequest(): void;
+  getLabelsRequest(): void;
 }
 
 type Props = StateProps & DispatchProps;
 
 const Board: React.FC<Props> = (props: Props) => {
   const classes = Style();
-  const { board, getIssuesSuccess, updateIssue } = props;
+  const {
+    issue,
+    label,
+    updateIssue,
+    getIssuesRequest,
+    getLabelsRequest,
+  } = props;
 
   useEffect(() => {
-    getIssuesSuccess([
-      ...generateMockItems('predev', 'predev', 5, 0),
-      ...generateMockItems('backlog', 'backlog', 10, 5),
-      ...generateMockItems('todo', 'todo', 10, 15),
-      ...generateMockItems('doing', 'doing', 15, 25),
-      ...generateMockItems('done', 'done', 10, 40),
-      ...generateMockItems('closed', 'closed', 50, 50),
-    ]);
-  }, [getIssuesSuccess]);
+    getLabelsRequest();
+    getIssuesRequest();
+  }, [getIssuesRequest, getLabelsRequest]);
 
   const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
+    const { source, destination, draggableId } = result;
 
     if (!destination) {
       return;
     }
 
-    const laneOrigin = board.lanes.find(
-      (lane) => lane.name === source.droppableId,
+    const findedIssue = issue.issues.find((target) => target.number.toString() === draggableId);
+    const destinationLabel = label.allLabels.find(
+      (destinationLane) => destinationLane.name === destination.droppableId,
     );
-    const issueTarget = laneOrigin?.issues[source.index];
-    if (!issueTarget) return;
-    const issueUpdated = { ...issueTarget, lane: destination.droppableId };
+
+    if (findedIssue === undefined || destinationLabel === undefined) return;
+
+    const issueTarget: Issue = findedIssue;
+    const issueWithouLanes:Issue = {
+      ...issueTarget,
+      labels: issueTarget?.labels?.filter(
+        (removeLabels) => !label.lanes.includes(removeLabels.name),
+      ),
+    };
+
+    const issueUpdated:Issue = {
+      ...issueWithouLanes,
+      labels: [
+        ...issueWithouLanes.labels ?? [],
+        destinationLabel,
+      ],
+    };
 
     updateIssue(issueUpdated);
   };
@@ -51,8 +70,15 @@ const Board: React.FC<Props> = (props: Props) => {
   return (
     <div className={classes.root}>
       <DragDropContext onDragEnd={onDragEnd}>
-        {board.lanes.map((lane) => (
-          <DroppableLane name={lane.name} items={lane.issues} />
+        {label.lanes.map((lane) => (
+          <DroppableLane
+            name={lane}
+            items={
+              issue.issues.filter(
+                (issue2) => issue2.labels?.findIndex((label2) => lane === label2.name) !== -1,
+              )
+            }
+          />
         ))}
       </DragDropContext>
     </div>

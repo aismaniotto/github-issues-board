@@ -1,5 +1,5 @@
 import api from '.';
-import { Issue } from '../../store/modules/board/types';
+import { Issue } from '../../store/modules/issue/types';
 
 export const getIssues = (owner: string, repo: string) =>
   api.get(`/repos/${owner}/${repo}/issues`);

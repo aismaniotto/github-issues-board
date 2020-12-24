@@ -1,15 +1,23 @@
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import * as BoardActions from '../store/modules/board/actions';
+import * as LabelActions from '../store/modules/label/actions';
+import * as IssueActions from '../store/modules/issue/actions';
 import { ApplicationState } from '../store';
 import Board from '../components/board';
 
 function mapStateToProps(state: ApplicationState) {
   return {
-    board: state.board,
+    label: state.label,
+    issue: state.issue,
   };
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(BoardActions, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(
+  {
+    ...LabelActions,
+    ...IssueActions,
+  },
+  dispatch,
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

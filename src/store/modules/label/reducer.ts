@@ -18,9 +18,11 @@ const reducer: Reducer<LabelState> = (state = INITIAL_STATE, action) => {
         labels: action.payload.filter((label: Label) => {
           if (!label.name.match(/^(_lane):[\d]+:.+/g)) return label;
         }),
-        lanes: action.payload.filter((label: Label) => {
-          if (label.name.match(/^(_lane):[\d]+:.+/g)) return label;
-        }),
+        lanes: action.payload
+          .filter((label: Label) => {
+            if (label.name.match(/^(_lane):[\d]+:.+/g)) return label;
+          })
+          .map((label: Label) => label.name),
       };
     case LabelTypes.GET_LABELS_FAILURE:
       return {

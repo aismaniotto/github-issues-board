@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { Issue } from '../store/modules/board/types';
+import { Issue } from '../store/modules/issue/types';
 import Style from '../styles/components/draggable-issue-card';
 
 interface Props {

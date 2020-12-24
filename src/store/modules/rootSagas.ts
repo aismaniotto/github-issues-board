@@ -3,6 +3,7 @@ import { signIn } from './auth/sagas';
 import { AuthTypes } from './auth/types';
 import { requestLabels } from './label/sagas';
 import { LabelTypes } from './label/types';
+import { IssueTypes } from './issue/types';
 import {
   requestRepoOwners,
   requestRepositoriesAfterSelectOwner,
@@ -10,6 +11,7 @@ import {
 import { RepoOwnerTypes } from './repoOwner/types';
 import { requestRepositories } from './repository/sagas';
 import { RepositoryTypes } from './repository/types';
+import { requestIssues } from './issue/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -21,5 +23,6 @@ export default function* rootSaga() {
     ),
     takeLatest(RepositoryTypes.REPOSITORIES_REQUEST, requestRepositories),
     takeLatest(LabelTypes.GET_LABELS_REQUEST, requestLabels),
+    takeLatest(IssueTypes.GET_ISSUES_REQUEST, requestIssues),
   ]);
 }

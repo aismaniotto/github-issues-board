@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   lane: {
+    height: '100%',
+    minWidth: '17rem',
     overflow: 'auto',
   },
   title: {

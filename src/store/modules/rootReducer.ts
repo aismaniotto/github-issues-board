@@ -3,7 +3,7 @@ import auth from './auth/reducer';
 import repoOwner from './repoOwner/reducer';
 import repository from './repository/reducer';
 import label from './label/reducer';
-import board from './board/reducer';
+import issue from './issue/reducer';
 import ui from './ui/reducer';
 
 export default combineReducers({
@@ -11,6 +11,6 @@ export default combineReducers({
   repoOwner,
   repository,
   label,
-  board,
+  issue,
   ui,
 });

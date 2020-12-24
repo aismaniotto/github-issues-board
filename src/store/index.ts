@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore, Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { AuthState } from './modules/auth/types';
-import { BoardState } from './modules/board/types';
+import { IssueState } from './modules/issue/types';
 import { LabelState } from './modules/label/types';
 import { RepoOwnerState } from './modules/repoOwner/types';
 import { RepositoryState } from './modules/repository/types';
@@ -15,7 +15,7 @@ export interface ApplicationState {
   repoOwner: RepoOwnerState;
   repository: RepositoryState;
   label: LabelState;
-  board: BoardState;
+  issue: IssueState;
   ui: UiState;
 }
 

@@ -22,5 +22,5 @@ export interface Label {
 export interface LabelState {
   readonly allLabels: Label[];
   readonly labels: Label[];
-  readonly lanes: Label[];
+  readonly lanes: string[];
 }
