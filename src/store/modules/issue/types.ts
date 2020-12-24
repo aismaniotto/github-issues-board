@@ -20,6 +20,8 @@ export interface Issue {
   title: string;
   body?: string;
   labels?: Label[];
+  // eslint-disable-next-line camelcase
+  closed_at?: string;
 }
 
 /**

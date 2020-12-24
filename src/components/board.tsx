@@ -68,16 +68,37 @@ const Board: React.FC<Props> = (props: Props) => {
   return (
     <div className={classes.root}>
       <DragDropContext onDragEnd={onDragEnd}>
+        <DroppableLane
+          name="no-lane"
+          items={
+            issue.issues.filter(
+              (issue2) => issue2.labels?.findIndex(
+                (label2) => label.lanes.includes(label2.name),
+              ) && issue2.closed_at === null,
+            )
+          }
+        />
         {label.lanes.map((lane) => (
           <DroppableLane
             name={lane}
             items={
               issue.issues.filter(
-                (issue2) => issue2.labels?.findIndex((label2) => lane === label2.name) !== -1,
+                (issue2) => issue2.labels?.findIndex(
+                  (label2) => lane === label2.name,
+                ) !== -1
+                  && issue2.closed_at === null,
               )
             }
           />
         ))}
+        <DroppableLane
+          name="closed"
+          items={
+              issue.issues.filter(
+                (issue2) => issue2.closed_at !== null,
+              )
+            }
+        />
       </DragDropContext>
     </div>
   );

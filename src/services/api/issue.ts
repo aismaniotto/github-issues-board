@@ -1,8 +1,14 @@
 import api from '.';
 import { Issue } from '../../store/modules/issue/types';
 
-export const getIssues = (owner: string, repo: string) =>
-  api.get(`/repos/${owner}/${repo}/issues`);
+export const getIssues = (owner: string, repo: string) => {
+  const config = {
+    params: {
+      state: 'all',
+    },
+  };
+  return api.get(`/repos/${owner}/${repo}/issues`, config);
+};
 
 export const newIssue = (owner: string, repo: string, issue: Issue) => {
   const body = {

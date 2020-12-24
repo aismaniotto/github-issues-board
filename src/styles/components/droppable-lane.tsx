@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   },
   lane: {
     height: '100%',
-    minWidth: '17rem',
     overflow: 'auto',
   },
   title: {
