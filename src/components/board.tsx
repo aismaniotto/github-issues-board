@@ -4,6 +4,11 @@ import DroppableLane from './droppable-lane';
 import Style from '../styles/components/board';
 import { LabelState } from '../store/modules/label/types';
 import { Issue, IssueState } from '../store/modules/issue/types';
+import findIssueByNumber from '../helpers/find-issue-by-number';
+import removeAllLanes from '../helpers/remove-all-lanes';
+import findIssuesWithNoLanes from '../helpers/find-issues-with-no-lanes';
+import findIssuesByLane from '../helpers/find-issues-by-lane';
+import findClosedIssues from '../helpers/find-closed-issues';
 
 interface StateProps {
   issue: IssueState;
@@ -40,22 +45,16 @@ const Board: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    const findedIssue = issue.issues.find((target) => target.number.toString() === draggableId);
+    const findedIssue = findIssueByNumber(issue.issues, draggableId);
     const destinationLabel = label.allLabels.find(
       (destinationLane) => destinationLane.name === destination.droppableId,
     );
 
     if (findedIssue === undefined || destinationLabel === undefined) return;
 
-    const issueTarget: Issue = findedIssue;
-    const issueWithouLanes:Issue = {
-      ...issueTarget,
-      labels: issueTarget?.labels?.filter(
-        (removeLabels) => !label.lanes.includes(removeLabels.name),
-      ),
-    };
+    const issueWithouLanes = removeAllLanes(findedIssue, label.lanes);
 
-    const issueUpdated:Issue = {
+    const issueUpdated = {
       ...issueWithouLanes,
       labels: [
         ...issueWithouLanes.labels ?? [],
@@ -65,39 +64,23 @@ const Board: React.FC<Props> = (props: Props) => {
 
     updateIssueRequest(issueUpdated);
   };
+
   return (
     <div className={classes.root}>
       <DragDropContext onDragEnd={onDragEnd}>
         <DroppableLane
           name="no-lane"
-          items={
-            issue.issues.filter(
-              (issue2) => issue2.labels?.findIndex(
-                (label2) => label.lanes.includes(label2.name),
-              ) && issue2.closed_at === null,
-            )
-          }
+          items={findIssuesWithNoLanes(issue.issues, label.lanes)}
         />
         {label.lanes.map((lane) => (
           <DroppableLane
             name={lane}
-            items={
-              issue.issues.filter(
-                (issue2) => issue2.labels?.findIndex(
-                  (label2) => lane === label2.name,
-                ) !== -1
-                  && issue2.closed_at === null,
-              )
-            }
+            items={findIssuesByLane(issue.issues, lane)}
           />
         ))}
         <DroppableLane
           name="closed"
-          items={
-              issue.issues.filter(
-                (issue2) => issue2.closed_at !== null,
-              )
-            }
+          items={findClosedIssues(issue.issues)}
         />
       </DragDropContext>
     </div>
