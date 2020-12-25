@@ -17,7 +17,7 @@ const DroppableLane: React.FC<Props> = (props: Props) => {
   return (
     <div className={classes.root}>
       <Typography variant="subtitle2" className={classes.title}>
-        {name}
+        {name.substring(name.lastIndexOf(':') + 1)}
       </Typography>
       <Droppable droppableId={name}>
         {(provided) => (
