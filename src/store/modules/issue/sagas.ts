@@ -13,6 +13,7 @@ import {
 import {
   getIssues,
   updateIssue as updateIssueApi,
+  closeIssue as closeIssueApi,
 } from '../../../services/api/issue';
 import { getCurrentRepoOwner } from '../../../services/local-storage/organization';
 import { getCurrentRepository } from '../../../services/local-storage/repository';
@@ -59,6 +60,31 @@ export function* updateIssue({
     } else {
       put(getIssuesRequest());
       put(setErrors(['not possible update the issue']));
+    }
+  } catch (err) {
+    yield put(setErrors([err.response.status]));
+    put(getIssuesRequest());
+  }
+}
+
+export function* closeIssue({
+  payload,
+}: {
+  type: typeof IssueTypes.CLOSE_ISSUE_REQUEST;
+  payload: Issue;
+}) {
+  try {
+    const response = yield call(
+      closeIssueApi,
+      getCurrentRepoOwner(),
+      getCurrentRepository(),
+      payload
+    );
+    if (response.status === 200) {
+      put(clearErrors());
+    } else {
+      put(getIssuesRequest());
+      put(setErrors(['not possible close the issue']));
     }
   } catch (err) {
     yield put(setErrors([err.response.status]));

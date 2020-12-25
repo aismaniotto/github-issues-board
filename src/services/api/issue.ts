@@ -11,19 +11,27 @@ export const getIssues = (owner: string, repo: string) => {
 };
 
 export const newIssue = (owner: string, repo: string, issue: Issue) => {
-  const body = {
+  const data = {
     title: issue.title,
     body: issue.body,
     labels: issue.labels?.map((label) => label.name),
   };
-  return api.post(`/repos/${owner}/${repo}/issues`, body);
+  return api.post(`/repos/${owner}/${repo}/issues`, data);
 };
 
 export const updateIssue = (owner: string, repo: string, issue: Issue) => {
-  const body = {
+  const data = {
     title: issue.title,
     body: issue.body,
     labels: issue.labels?.map((label) => label.name),
+    closed_at: issue.closed_at,
   };
-  return api.post(`/repos/${owner}/${repo}/issues/${issue.number}`, body);
+  return api.patch(`/repos/${owner}/${repo}/issues/${issue.number}`, data);
+};
+
+export const closeIssue = (owner: string, repo: string, issue: Issue) => {
+  const data = {
+    state: 'closed',
+  };
+  return api.patch(`/repos/${owner}/${repo}/issues/${issue.number}`, data);
 };

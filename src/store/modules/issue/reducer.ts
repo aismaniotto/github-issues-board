@@ -34,6 +34,19 @@ const reducer: Reducer<IssueState> = (state = INITIAL_STATE, action) => {
           action.payload,
         ],
       };
+    case IssueTypes.CLOSE_ISSUE_REQUEST:
+      return {
+        ...state,
+        issues: [
+          ...state.issues.filter(
+            (issue) => issue.number !== action.payload.number
+          ),
+          {
+            ...action.payload,
+            closed_at: Date.now().toString(),
+          },
+        ],
+      };
     default:
       return state;
   }

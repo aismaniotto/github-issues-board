@@ -17,6 +17,7 @@ interface StateProps {
 
 interface DispatchProps {
   updateIssueRequest(issue: Issue): void;
+  closeIssueRequest(issue: Issue): void;
   getIssuesRequest(): void;
   getLabelsRequest(): void;
 }
@@ -29,6 +30,7 @@ const Board: React.FC<Props> = (props: Props) => {
     issue,
     label,
     updateIssueRequest,
+    closeIssueRequest,
     getIssuesRequest,
     getLabelsRequest,
   } = props;
@@ -50,19 +52,25 @@ const Board: React.FC<Props> = (props: Props) => {
       (destinationLane) => destinationLane.name === destination.droppableId,
     );
 
-    if (findedIssue === undefined || destinationLabel === undefined) return;
+    if (findedIssue === undefined) return;
 
-    const issueWithouLanes = removeAllLanes(findedIssue, label.lanes);
+    if (destination.droppableId === 'closed') {
+      closeIssueRequest(findedIssue);
+    } else if (destination.droppableId === 'no-lane') {
+      updateIssueRequest(removeAllLanes(findedIssue, label.lanes));
+    } else if (destinationLabel !== undefined) {
+      const issueWithouLanes = removeAllLanes(findedIssue, label.lanes);
 
-    const issueUpdated = {
-      ...issueWithouLanes,
-      labels: [
-        ...issueWithouLanes.labels ?? [],
-        destinationLabel,
-      ],
-    };
+      const issueUpdated = {
+        ...issueWithouLanes,
+        labels: [
+          ...issueWithouLanes.labels ?? [],
+          destinationLabel,
+        ],
+      };
 
-    updateIssueRequest(issueUpdated);
+      updateIssueRequest(issueUpdated);
+    }
   };
 
   return (
