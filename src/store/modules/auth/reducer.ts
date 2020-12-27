@@ -33,7 +33,13 @@ const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
         token: '',
         username: '',
       };
-
+    case AuthTypes.LOGOUT_REQUEST:
+      return {
+        ...state,
+        signed: false,
+        token: '',
+        username: '',
+      };
     default:
       return state;
   }

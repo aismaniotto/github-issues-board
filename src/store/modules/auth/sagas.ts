@@ -1,10 +1,16 @@
 import { call, put } from 'redux-saga/effects';
 import { signSuccess, signFailure } from './actions';
-import { stopLoading, setErrors, startLoading } from '../ui/actions';
+import {
+  stopLoading,
+  setErrors,
+  startLoading,
+  clearErrors,
+} from '../ui/actions';
 import { AuthTypes } from './types';
 import { saveAccessToken } from '../../../services/local-storage/token';
 import { getUser } from '../../../services/api/auth';
 import { saveUsername } from '../../../services/local-storage/username';
+import logoutHelper from '../../../helpers/logout';
 
 export function* signIn({
   payload,
@@ -35,4 +41,9 @@ export function* signIn({
   } finally {
     yield put(stopLoading());
   }
+}
+
+export function* logout() {
+  logoutHelper();
+  yield put(clearErrors());
 }

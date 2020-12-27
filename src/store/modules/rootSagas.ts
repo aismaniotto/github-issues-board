@@ -1,5 +1,5 @@
 import { all, takeLatest } from 'redux-saga/effects';
-import { signIn } from './auth/sagas';
+import { logout, signIn } from './auth/sagas';
 import { AuthTypes } from './auth/types';
 import { requestLabels } from './label/sagas';
 import { LabelTypes } from './label/types';
@@ -16,6 +16,7 @@ import { closeIssue, requestIssues, updateIssue } from './issue/sagas';
 export default function* rootSaga() {
   return yield all([
     takeLatest(AuthTypes.SIGN_REQUEST, signIn),
+    takeLatest(AuthTypes.LOGOUT_REQUEST, logout),
     takeLatest(RepoOwnerTypes.REPO_OWNERS_REQUEST, requestRepoOwners),
     takeLatest(
       RepoOwnerTypes.REPO_OWNER_SELECT,

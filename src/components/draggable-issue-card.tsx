@@ -31,12 +31,11 @@ const DraggableIssueCard: React.FC<Props> = (props: Props) => {
             </b>
             {' '}
             {issue.title}
-            <hr />
-            {issue.labels?.map(
-              (label) => (!label.name.match(/^(_lane):[\d]+:.+/g) ? <Tag label={label.name} color={label.color} /> : null),
-            )}
-
           </Typography>
+          <hr />
+          {issue.labels?.map(
+            (label) => (!label.name.match(/^(_lane):[\d]+:.+/g) ? <Tag label={label.name} color={label.color} /> : null),
+          )}
         </div>
       )}
     </Draggable>
