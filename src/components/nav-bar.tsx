@@ -1,5 +1,5 @@
 import {
-  AppBar, Button, Link, Toolbar, Typography,
+  AppBar, Button, Toolbar, Typography,
 } from '@material-ui/core';
 import React from 'react';
 import { RepositoryState } from '../store/modules/repository/types';

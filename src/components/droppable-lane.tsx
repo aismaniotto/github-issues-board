@@ -29,6 +29,7 @@ const DroppableLane: React.FC<Props> = (props: Props) => {
           >
             {items.map((item, index) => (
               <DraggableIssueCard
+                key={item.number}
                 issue={item}
                 index={index}
               />

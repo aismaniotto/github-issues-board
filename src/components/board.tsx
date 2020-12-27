@@ -87,6 +87,7 @@ const Board: React.FC<Props> = (props: Props) => {
         />
         {label.lanes.map((lane) => (
           <DroppableLane
+            key={lane}
             name={lane}
             items={findIssuesByLane(issue.issues, lane)}
           />
