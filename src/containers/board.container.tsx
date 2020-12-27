@@ -9,6 +9,7 @@ function mapStateToProps(state: ApplicationState) {
   return {
     label: state.label,
     issue: state.issue,
+    ui: state.ui,
   };
 }
 

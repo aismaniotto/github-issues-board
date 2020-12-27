@@ -3,6 +3,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Issue } from '../store/modules/issue/types';
 import Style from '../styles/components/draggable-issue-card';
+import Tag from './tag';
 
 interface Props {
   issue: Issue,
@@ -23,8 +24,18 @@ const DraggableIssueCard: React.FC<Props> = (props: Props) => {
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...provided.dragHandleProps}
         >
-          <Typography variant="body2" className={classes.title}>
+          <Typography variant="body1" className={classes.title}>
+            <b>
+              #
+              {issue.number}
+            </b>
+            {' '}
             {issue.title}
+            <hr />
+            {issue.labels?.map(
+              (label) => (!label.name.match(/^(_lane):[\d]+:.+/g) ? <Tag label={label.name} color={label.color} /> : null),
+            )}
+
           </Typography>
         </div>
       )}
