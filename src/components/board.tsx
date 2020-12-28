@@ -84,7 +84,6 @@ const Board: React.FC<Props> = (props: Props) => {
           state: 'open',
           closed_at: null
         }
-        console.log(issueUpdatedReopen);
         updateIssueRequest(issueUpdatedReopen);
       }else{
         updateIssueRequest(issueUpdated);
