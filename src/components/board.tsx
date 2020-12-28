@@ -73,7 +73,22 @@ const Board: React.FC<Props> = (props: Props) => {
         ],
       };
 
-      updateIssueRequest(issueUpdated);
+      if(findedIssue.closed_at){
+        // Reopen Issue
+        const issueUpdatedReopen= {
+          ...issueWithouLanes,
+          labels: [
+            ...issueWithouLanes.labels ?? [],
+            destinationLabel,
+          ],
+          state: 'open',
+          closed_at: null
+        }
+        console.log(issueUpdatedReopen);
+        updateIssueRequest(issueUpdatedReopen);
+      }else{
+        updateIssueRequest(issueUpdated);
+      }
     }
   };
 

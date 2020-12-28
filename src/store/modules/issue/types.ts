@@ -22,7 +22,8 @@ export interface Issue {
   body?: string;
   labels?: Label[];
   // eslint-disable-next-line camelcase
-  closed_at?: string;
+  closed_at?: string | null;  // to allow string values or null values
+  state?: string;
 }
 
 /**

@@ -25,6 +25,7 @@ export const updateIssue = (owner: string, repo: string, issue: Issue) => {
     body: issue.body,
     labels: issue.labels?.map((label) => label.name),
     closed_at: issue.closed_at,
+    state: issue.state
   };
   return api.patch(`/repos/${owner}/${repo}/issues/${issue.number}`, data);
 };
