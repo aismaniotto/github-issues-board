@@ -9,4 +9,4 @@ To create lanes to the board, create at github labels with the format `_lane:{nu
 
 When the issue is dropped in some lane, the labels will be update.
 If dropped on no-lane, will remove all labels with the specific prefixe that identify the lanes.
-If dropped on closed, will close the issue (for now, it's not possible re-open the issue by the board).
+If dropped on closed, will close the issue.
