@@ -6,7 +6,7 @@ import { Repository, RepositoryState } from '../store/modules/repository/types';
 import { RepoOwner, RepoOwnerState } from '../store/modules/repoOwner/types';
 import Loader from './loader';
 import { UiState } from '../store/modules/ui/types';
-import { saveCurrentRepoOwner } from '../services/local-storage/organization';
+import { saveCurrentRepoOwner } from '../services/local-storage/repoOwner';
 import { saveCurrentRepository } from '../services/local-storage/repository';
 import Styles from '../styles/components/select-repo-form';
 

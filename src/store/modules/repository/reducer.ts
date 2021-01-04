@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { RepositoryState, RepositoryTypes } from './types';
-import { getCurrentRepoOwner } from '../../../services/local-storage/organization';
+import { getCurrentRepoOwner } from '../../../services/local-storage/repoOwner';
 import { getCurrentRepository } from '../../../services/local-storage/repository';
 import { getUsername } from '../../../services/local-storage/username';
 

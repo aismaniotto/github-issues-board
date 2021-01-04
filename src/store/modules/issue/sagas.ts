@@ -15,7 +15,7 @@ import {
   updateIssue as updateIssueApi,
   closeIssue as closeIssueApi,
 } from '../../../services/api/issue';
-import { getCurrentRepoOwner } from '../../../services/local-storage/organization';
+import { getCurrentRepoOwner } from '../../../services/local-storage/repoOwner';
 import { getCurrentRepository } from '../../../services/local-storage/repository';
 import { Issue, IssueTypes } from './types';
 

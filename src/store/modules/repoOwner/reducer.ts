@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { RepoOwnerState, RepoOwnerTypes } from './types';
-import { getCurrentRepoOwner } from '../../../services/local-storage/organization';
+import { getCurrentRepoOwner } from '../../../services/local-storage/repoOwner';
 import { getUsername } from '../../../services/local-storage/username';
 
 const INITIAL_STATE: RepoOwnerState = {

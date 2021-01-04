@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import { getLabelsSuccess, getLabelsFailure } from './actions';
 import { stopLoading, setErrors, startLoading } from '../ui/actions';
 import { getLabels } from '../../../services/api/label';
-import { getCurrentRepoOwner } from '../../../services/local-storage/organization';
+import { getCurrentRepoOwner } from '../../../services/local-storage/repoOwner';
 import { getCurrentRepository } from '../../../services/local-storage/repository';
 
 export function* requestLabels() {
