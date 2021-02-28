@@ -11,4 +11,6 @@ export const createIssueResquest = (issue: Issue) =>
 export const updateIssueRequest = (issue: Issue) =>
   action(IssueTypes.UPDATE_ISSUE_REQUEST, issue);
 export const closeIssueRequest = (issue: Issue) =>
-  action(IssueTypes.CLOSE_ISSUE_REQUEST, issue);
+    action(IssueTypes.CLOSE_ISSUE_REQUEST, issue);
+export const reopenIssueRequest = (issue: Issue) =>
+  action(IssueTypes.REOPEN_ISSUE_REQUEST, issue);

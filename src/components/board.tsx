@@ -21,6 +21,7 @@ interface StateProps {
 interface DispatchProps {
   updateIssueRequest(issue: Issue): void;
   closeIssueRequest(issue: Issue): void;
+  reopenIssueRequest(issue: Issue): void;
   getIssuesRequest(): void;
   getLabelsRequest(): void;
 }
@@ -35,6 +36,7 @@ const Board: React.FC<Props> = (props: Props) => {
     label,
     updateIssueRequest,
     closeIssueRequest,
+    reopenIssueRequest,
     getIssuesRequest,
     getLabelsRequest,
   } = props;
@@ -73,19 +75,9 @@ const Board: React.FC<Props> = (props: Props) => {
         ],
       };
 
-      if(findedIssue.closed_at){
-        // Reopen Issue
-        const issueUpdatedReopen= {
-          ...issueWithouLanes,
-          labels: [
-            ...issueWithouLanes.labels ?? [],
-            destinationLabel,
-          ],
-          state: 'open',
-          closed_at: null
-        }
-        updateIssueRequest(issueUpdatedReopen);
-      }else{
+      if (findedIssue.state === 'closed') {
+        reopenIssueRequest(issueUpdated)
+      } else {
         updateIssueRequest(issueUpdated);
       }
     }

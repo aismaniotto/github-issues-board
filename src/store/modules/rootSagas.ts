@@ -11,7 +11,7 @@ import {
 import { RepoOwnerTypes } from './repoOwner/types';
 import { requestRepositories } from './repository/sagas';
 import { RepositoryTypes } from './repository/types';
-import { closeIssue, requestIssues, updateIssue } from './issue/sagas';
+import { closeIssue, requestIssues, updateIssue, reopenIssue } from './issue/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -27,5 +27,6 @@ export default function* rootSaga() {
     takeLatest(IssueTypes.GET_ISSUES_REQUEST, requestIssues),
     takeLatest(IssueTypes.UPDATE_ISSUE_REQUEST, updateIssue),
     takeLatest(IssueTypes.CLOSE_ISSUE_REQUEST, closeIssue),
+    takeLatest(IssueTypes.REOPEN_ISSUE_REQUEST, reopenIssue),
   ]);
 }

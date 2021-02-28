@@ -24,7 +24,6 @@ export const updateIssue = (owner: string, repo: string, issue: Issue) => {
     title: issue.title,
     body: issue.body,
     labels: issue.labels?.map((label) => label.name),
-    closed_at: issue.closed_at,
     state: issue.state
   };
   return api.patch(`/repos/${owner}/${repo}/issues/${issue.number}`, data);
@@ -33,6 +32,13 @@ export const updateIssue = (owner: string, repo: string, issue: Issue) => {
 export const closeIssue = (owner: string, repo: string, issue: Issue) => {
   const data = {
     state: 'closed',
+  };
+  return api.patch(`/repos/${owner}/${repo}/issues/${issue.number}`, data);
+};
+
+export const reopenIssue = (owner: string, repo: string, issue: Issue) => {
+  const data = {
+    state: 'open',
   };
   return api.patch(`/repos/${owner}/${repo}/issues/${issue.number}`, data);
 };

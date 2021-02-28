@@ -14,6 +14,7 @@ import {
   getIssues,
   updateIssue as updateIssueApi,
   closeIssue as closeIssueApi,
+  reopenIssue as reopenIssueApi,
 } from '../../../services/api/issue';
 import { getCurrentRepoOwner } from '../../../services/local-storage/repoOwner';
 import { getCurrentRepository } from '../../../services/local-storage/repository';
@@ -85,6 +86,31 @@ export function* closeIssue({
     } else {
       put(getIssuesRequest());
       put(setErrors(['not possible close the issue']));
+    }
+  } catch (err) {
+    yield put(setErrors([err.response.status]));
+    put(getIssuesRequest());
+  }
+}
+
+export function* reopenIssue({
+  payload,
+}: {
+  type: typeof IssueTypes.REOPEN_ISSUE_REQUEST;
+  payload: Issue;
+}) {
+  try {
+    const response = yield call(
+      reopenIssueApi,
+      getCurrentRepoOwner(),
+      getCurrentRepository(),
+      payload
+    );
+    if (response.status === 200) {
+      put(clearErrors());
+    } else {
+      put(getIssuesRequest());
+      put(setErrors(['not possible reopen the issue']));
     }
   } catch (err) {
     yield put(setErrors([err.response.status]));

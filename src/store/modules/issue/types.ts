@@ -11,6 +11,7 @@ export enum IssueTypes {
   CREATE_ISSUE_REQUEST = 'CREATE_ISSUE_REQUEST',
   UPDATE_ISSUE_REQUEST = 'UPDATE_ISSUE_REQUEST',
   CLOSE_ISSUE_REQUEST = 'CLOSE_ISSUE_REQUEST',
+  REOPEN_ISSUE_REQUEST = 'REOPEN_ISSUE_REQUEST',
 }
 
 /**
@@ -21,8 +22,6 @@ export interface Issue {
   title: string;
   body?: string;
   labels?: Label[];
-  // eslint-disable-next-line camelcase
-  closed_at?: string | null;  // to allow string values or null values
   state?: string;
 }
 

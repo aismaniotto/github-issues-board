@@ -1,3 +1,4 @@
+import { CollectionsBookmarkRounded } from '@material-ui/icons';
 import { Reducer } from 'redux';
 import { IssueState, IssueTypes } from './types';
 
@@ -43,10 +44,24 @@ const reducer: Reducer<IssueState> = (state = INITIAL_STATE, action) => {
           ),
           {
             ...action.payload,
-            closed_at: Date.now().toString(),
+            state: 'closed',
           },
         ],
       };
+    case IssueTypes.REOPEN_ISSUE_REQUEST:
+      return {
+        ...state,
+        issues: [
+          ...state.issues.filter(
+            (issue) => issue.number !== action.payload.number
+          ),
+          {
+            ...action.payload,
+            state: 'open',
+          },
+        ],
+      };
+      
     default:
       return state;
   }
