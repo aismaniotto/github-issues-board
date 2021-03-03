@@ -11,6 +11,7 @@ import findIssuesByLane from '../helpers/find-issues-by-lane';
 import findClosedIssues from '../helpers/find-closed-issues';
 import { UiState } from '../store/modules/ui/types';
 import Loader from './loader';
+import ErrorDialogContainer from '../containers/error-dialog.container';
 
 interface StateProps {
   ui: UiState
@@ -103,6 +104,7 @@ const Board: React.FC<Props> = (props: Props) => {
           items={findClosedIssues(issue.issues)}
         />
       </DragDropContext>
+      <ErrorDialogContainer />
     </div>
   );
 };

@@ -38,8 +38,6 @@ export function* requestIssues() {
   } catch (err) {
     yield put(getIssuesFailure());
     yield put(setErrors([err.response.status]));
-  } finally {
-    yield put(stopLoading());
   }
 }
 
