@@ -57,14 +57,14 @@ export function* updateIssue({
       payload
     );
     if (response.status === 200) {
-      put(clearErrors());
+      yield put(clearErrors());
     } else {
-      put(getIssuesRequest());
-      put(setErrors(['not possible update the issue']));
+      yield put(getIssuesRequest());
+      yield put(setErrors(['not possible update the issue']));
     }
   } catch (err) {
     yield put(setErrors([err.response.status]));
-    put(getIssuesRequest());
+    yield put(getIssuesRequest());
   }
 }
 
@@ -82,14 +82,14 @@ export function* closeIssue({
       payload
     );
     if (response.status === 200) {
-      put(clearErrors());
+      yield put(clearErrors());
     } else {
-      put(getIssuesRequest());
-      put(setErrors(['not possible close the issue']));
+      yield put(getIssuesRequest());
+      yield put(setErrors(['not possible close the issue']));
     }
   } catch (err) {
     yield put(setErrors([err.response.status]));
-    put(getIssuesRequest());
+    yield put(getIssuesRequest());
   }
 }
 
@@ -107,13 +107,13 @@ export function* reopenIssue({
       payload
     );
     if (response.status === 200) {
-      put(clearErrors());
+      yield put(clearErrors());
     } else {
-      put(getIssuesRequest());
-      put(setErrors(['not possible reopen the issue']));
+      yield put(getIssuesRequest());
+      yield put(setErrors(['not possible reopen the issue']));
     }
   } catch (err) {
     yield put(setErrors([err.response.status]));
-    put(getIssuesRequest());
+    yield put(getIssuesRequest());
   }
 }
