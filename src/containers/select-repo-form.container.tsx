@@ -7,7 +7,6 @@ import SelectRepoForm from '../components/select-repo-form';
 
 function mapStateToProps(state: ApplicationState) {
   return {
-    ui: state.ui,
     repoOwner: state.repoOwner,
     repository: state.repository,
   };

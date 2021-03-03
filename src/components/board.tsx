@@ -9,12 +9,10 @@ import removeAllLanes from '../helpers/remove-all-lanes';
 import findIssuesWithNoLanes from '../helpers/find-issues-with-no-lanes';
 import findIssuesByLane from '../helpers/find-issues-by-lane';
 import findClosedIssues from '../helpers/find-closed-issues';
-import { UiState } from '../store/modules/ui/types';
-import Loader from './loader';
+import LoaderContainer from '../containers/loader.container';
 import ErrorDialogContainer from '../containers/error-dialog.container';
 
 interface StateProps {
-  ui: UiState
   issue: IssueState;
   label: LabelState;
 }
@@ -32,7 +30,6 @@ type Props = StateProps & DispatchProps;
 const Board: React.FC<Props> = (props: Props) => {
   const classes = Style();
   const {
-    ui,
     issue,
     label,
     updateIssueRequest,
@@ -86,7 +83,7 @@ const Board: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={classes.root}>
-      {ui.loading && <Loader />}
+      <LoaderContainer />
       <DragDropContext onDragEnd={onDragEnd}>
         <DroppableLane
           name="no-lane"
