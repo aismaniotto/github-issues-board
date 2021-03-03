@@ -24,9 +24,7 @@ export function* requestRepoOwners() {
   } catch (err) {
     yield put(repoOwnersFailure());
     yield put(setErrors([err.response.status]));
-  } finally {
-    yield put(stopLoading());
-  }
+  } 
 }
 
 export function* requestRepositoriesAfterSelectOwner({

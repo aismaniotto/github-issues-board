@@ -31,7 +31,5 @@ export function* requestRepositories({
   } catch (err) {
     yield put(repositoriesFailure());
     yield put(setErrors([err.response.status]));
-  } finally {
-    yield put(stopLoading());
-  }
+  } 
 }
