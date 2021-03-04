@@ -9,8 +9,6 @@ import removeAllLanes from '../helpers/remove-all-lanes';
 import findIssuesWithNoLanes from '../helpers/find-issues-with-no-lanes';
 import findIssuesByLane from '../helpers/find-issues-by-lane';
 import findClosedIssues from '../helpers/find-closed-issues';
-import LoaderContainer from '../containers/loader.container';
-import ErrorDialogContainer from '../containers/error-dialog.container';
 
 interface StateProps {
   issue: IssueState;
@@ -74,7 +72,7 @@ const Board: React.FC<Props> = (props: Props) => {
       };
 
       if (findedIssue.state === 'closed') {
-        reopenIssueRequest(issueUpdated)
+        reopenIssueRequest(issueUpdated);
       } else {
         updateIssueRequest(issueUpdated);
       }
@@ -83,7 +81,6 @@ const Board: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={classes.root}>
-      <LoaderContainer />
       <DragDropContext onDragEnd={onDragEnd}>
         <DroppableLane
           name="no-lane"
@@ -101,7 +98,6 @@ const Board: React.FC<Props> = (props: Props) => {
           items={findClosedIssues(issue.issues)}
         />
       </DragDropContext>
-      <ErrorDialogContainer />
     </div>
   );
 };

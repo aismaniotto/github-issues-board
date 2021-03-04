@@ -6,7 +6,6 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { Redirect } from 'react-router-dom';
 import Style from '../styles/components/token-auth-form';
 import { UiState } from '../store/modules/ui/types';
-import LoaderContainer from '../containers/loader.container';
 import { AuthState } from '../store/modules/auth/types';
 
 interface StateProps {
@@ -38,7 +37,6 @@ const TokenAuthForm: React.FC<Props> = (props:Props) => {
 
   return (
     <div className={classes.root}>
-      <LoaderContainer />
       <form onSubmit={handleSubmit}>
         <FormControl />
         <TextField

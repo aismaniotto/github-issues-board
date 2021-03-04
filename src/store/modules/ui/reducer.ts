@@ -9,7 +9,11 @@ const INITIAL_STATE: UiState = {
 const reducer: Reducer<UiState> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UiTypes.START_LOADING:
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true,
+        errors: [],
+      };
     case UiTypes.STOP_LOADING:
       return { ...state, loading: false };
     case UiTypes.SET_ERRORS:

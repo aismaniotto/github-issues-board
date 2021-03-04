@@ -4,11 +4,9 @@ import {
 } from '@material-ui/core';
 import { Repository, RepositoryState } from '../store/modules/repository/types';
 import { RepoOwner, RepoOwnerState } from '../store/modules/repoOwner/types';
-import LoaderContainer from '../containers/loader.container';
 import { saveCurrentRepoOwner } from '../services/local-storage/repoOwner';
 import { saveCurrentRepository } from '../services/local-storage/repository';
 import Styles from '../styles/components/select-repo-form';
-import ErrorDialogContainer from '../containers/error-dialog.container';
 
 interface StateProps {
   repoOwner: RepoOwnerState,
@@ -70,7 +68,6 @@ const SelectRepoPage: React.FC<Props> = (props:Props) => {
 
   return (
     <div className={classes.root}>
-      <LoaderContainer />
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.formControl} fullWidth>
           <InputLabel id="repoOWners-label">Repo owners</InputLabel>
@@ -110,7 +107,6 @@ const SelectRepoPage: React.FC<Props> = (props:Props) => {
           Ok
         </Button>
       </form>
-      <ErrorDialogContainer />
     </div>
   );
 };
